@@ -43,18 +43,18 @@ def calcular():
     except Exception as e:
         messagebox.showerror("Error inesperado", str(e))
 
-# Crear ventana
+# Create window
 raiz = tk.Tk()
 raiz.title("Super calculadora de Dani")
 raiz.geometry("700x400")
 raiz.iconbitmap("calculadora.ico")
 raiz.configure(bg="#b2ebf2")
 
-# Cargar icono
+# Upload icon
 icono = tk.PhotoImage(file="flecha.png")
 raiz.icono_flecha = icono  # Para evitar que la imagen se borre
 
-# Labels y entradas alineados con grid
+# Labels y entries aligned with grid
 tk.Label(raiz, text="VALOR 1:", font=("Cascadia Code", 22), bg="#b2ebf2").grid(row=0, column=0, sticky="e", padx=10, pady=10)
 entrada1 = tk.Entry(raiz, font=("Cascadia Code", 18))
 entrada1.grid(row=0, column=1, padx=10, pady=10)
@@ -84,7 +84,7 @@ menu.config(
 )
 menu.grid(row=2, column=1, sticky="w", padx=10, pady=10)
 
-# Botón calcular centrado en dos columnas
+# Button calculate centered in two columns
 boton_calcular = tk.Button(
     raiz,
     text="CALCULAR",
@@ -98,7 +98,7 @@ boton_calcular = tk.Button(
 )
 boton_calcular.grid(row=3, column=0, columnspan=2, pady=20)
 
-# Label resultado centrado en dos columnas
+# Label result centered in two columns
 resultado_label = tk.Label(
     raiz,
     text="RESULTADO: ",
