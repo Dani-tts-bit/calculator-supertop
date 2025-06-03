@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from math import sqrt, isinf, isnan
+import sys
 
 def calcular():
     try:
@@ -32,15 +33,18 @@ def calcular():
         elif op == "Porcentaje":
             resultado = (a * b) / 100
         else:
-            resultado = "Operación no válida"
+            raise ValueError("Operación no válida")
 
         if isnan(resultado) or isinf(resultado):
-            raise ValueError("Resultado inválido.")
+            raise OverflowError("Resultado demasiado grande o inválido.")
 
         resultado_label.config(text=f"Resultado: {resultado}")
-    except ValueError as ve:
+
+    except (ValueError, OverflowError) as ve:
+        resultado_label.config(text="Resultado: ERROR")
         messagebox.showerror("Error", str(ve))
     except Exception as e:
+        resultado_label.config(text="Resultado: ERROR")
         messagebox.showerror("Error inesperado", str(e))
 
 # Create window
@@ -50,11 +54,11 @@ raiz.geometry("700x400")
 raiz.iconbitmap("calculadora.ico")
 raiz.configure(bg="#b2ebf2")
 
-# Upload icon
+# upload arrow icon
 icono = tk.PhotoImage(file="flecha.png")
-raiz.icono_flecha = icono  # Para evitar que la imagen se borre
+raiz.icono_flecha = icono  
 
-# Labels y entries aligned with grid
+# Tags and entry fields
 tk.Label(raiz, text="VALOR 1:", font=("Cascadia Code", 22), bg="#b2ebf2").grid(row=0, column=0, sticky="e", padx=10, pady=10)
 entrada1 = tk.Entry(raiz, font=("Cascadia Code", 18))
 entrada1.grid(row=0, column=1, padx=10, pady=10)
@@ -84,7 +88,7 @@ menu.config(
 )
 menu.grid(row=2, column=1, sticky="w", padx=10, pady=10)
 
-# Button calculate centered in two columns
+# Button to calculate
 boton_calcular = tk.Button(
     raiz,
     text="CALCULAR",
@@ -98,7 +102,7 @@ boton_calcular = tk.Button(
 )
 boton_calcular.grid(row=3, column=0, columnspan=2, pady=20)
 
-# Label result centered in two columns
+# Tag for the result
 resultado_label = tk.Label(
     raiz,
     text="RESULTADO: ",
